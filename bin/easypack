@@ -1,0 +1,15 @@
+#! /usr/bin/env node
+
+const path = require('path');
+const packageJson = require('../package.json');
+
+// load local version if exist
+try {
+  const localWebpack = require.resolve(path.join(process.cwd(), 'node_modules', packageJson.name, 'bin', 'easypack'));
+  if (__filename !== localWebpack) {
+    return require(localWebpack);
+  }
+} catch (e) {
+}
+
+require('../src/cli');

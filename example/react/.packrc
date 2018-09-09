@@ -1,0 +1,44 @@
+entry:
+    index: src/index.js
+output:
+    publicPath: /
+    path: dist
+    filename: [name].js
+    chunkFilename: chunk/[name].js
+    styleFilename: [name].css
+    htmlFilename: [name].html
+    sourcemap: true
+target: web # web/node/async-node/electron-main/electron-renderer/node-webkit/webworker
+
+modules:
+    react: true
+    ts: true
+    less:
+        module: true
+
+plugins:
+    externals: # array or object
+        modules: # webpack.externals
+            - react
+        publicPath: # webpack-external-plugin
+        externals:
+            - ants/css
+
+dev:
+    port: 9000
+    host: 0.0.0.0
+    hot: true
+    publicPath: /
+    allowedHosts:
+        - localhost
+        - 127.0.0.1
+    historyApiFallback: true
+    lazy: false
+    open: true
+    proxy:
+        /api: http://localhost:3000
+        /api/a:
+            target: http://localhost:3000
+            secure: false
+            pathRewrite:
+                ^/api/a: /api/b
