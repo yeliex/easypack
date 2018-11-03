@@ -12,4 +12,4 @@ try {
 } catch (e) {
 }
 
-require('../src/cli');
+require('../lib/cli');

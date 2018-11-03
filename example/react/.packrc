@@ -1,5 +1,5 @@
 entry:
-    index: src/index.js
+    index: src/index.ts
 output:
     publicPath: /
     path: dist

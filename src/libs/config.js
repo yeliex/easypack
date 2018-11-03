@@ -2,9 +2,11 @@ const fs = require('fs');
 const _ = require('lodash');
 const yaml = require('js-yaml');
 const { resolve, extname } = require('path');
+const { AVALIABLE_CONFIG_FILE } = require('./consts');
+const { fileStat } = require('./utils/fs');
 const defaultConfig = require('./default-config');
 
-const configFile = ['.packrc.js', '.packrc.json', '.packrc.yaml', '.packrc.yml', '.packrc'];
+const configFile = ['.pack.js', '.packrc'];
 
 const cwd = process.cwd();
 
@@ -76,4 +78,13 @@ exports.ensure = () => {
     return true;
   }
   return load() || false;
+};
+
+// detect if config file exist
+exports.exist = (paths = AVALIABLE_CONFIG_FILE) => {
+  paths = paths.map(f => resolve(process.cwd(), f));
+
+  for (const path in paths) {
+    console.log(path);
+  }
 };
