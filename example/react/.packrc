@@ -8,9 +8,9 @@ output:
     styleFilename: [name].css
     htmlFilename: [name].html
     sourcemap: true
-target: web # web/node/async-node/electron-main/electron-renderer/node-webkit/webworker
+target: web # web/library/node/electron-main/electron-render
 
-modules:
+features:
     react: true
     ts: true
     less:

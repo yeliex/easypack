@@ -1,2 +1,3 @@
 # easypack
-a webpack implemention cli
+
+tool to pack everything: web app / library / ts / electron

@@ -4,7 +4,7 @@ import { join } from 'path';
 
 const packageJson = require('../package.json');
 
-const commandDir = join(__dirname, 'command');
+const commandDir = join(__dirname, 'commands');
 
 const commands = glob.sync('*.js', {
     cwd: commandDir,

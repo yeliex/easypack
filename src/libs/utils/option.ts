@@ -1,7 +1,9 @@
 import { resolve } from 'path';
-import { safeDump } from 'js-yaml';
+import { safeDump, safeLoad } from 'js-yaml';
 import * as inquirer from 'inquirer';
-import { AVALIABLE_CONFIG_FILE, INITIAL_CONFIG } from '../consts';
+import { writeFile, readFile } from 'fs';
+import { promisify } from 'util';
+import { AVALIABLE_CONFIG_FILE, INITIAL_OPTION } from '../../consts';
 import { fileStat } from './fs';
 
 export const exist = (paths = AVALIABLE_CONFIG_FILE) => {
@@ -40,7 +42,7 @@ export const format = (obj, type) => {
 };
 
 // write config to path
-export const write = async (path, config = INITIAL_CONFIG, options: ConfigWriteOptions = defaultWriteOptions) => {
+export const write = async (path, config = INITIAL_OPTION, options: ConfigWriteOptions = defaultWriteOptions) => {
     const type = path.endsWith('.js') ? 'js' : 'yaml';
 
     const content = format(config, type);
@@ -64,5 +66,34 @@ export const write = async (path, config = INITIAL_CONFIG, options: ConfigWriteO
         }
     }
 
+    return promisify(writeFile)(path, config, 'utf8');
+};
 
+export const load = async (path?: string | string[], env = {
+    cwd: process.cwd(),
+    env: process.env.NODE_ENV,
+}) => {
+    const paths = (path ? (Array.isArray(path) ? path : [path]) : AVALIABLE_CONFIG_FILE).map((p) => resolve(env.cwd, p));
+
+    for (const filePath of paths) {
+        const stat = fileStat(filePath);
+
+        if (!stat) {
+            continue;
+        }
+
+        if (!filePath.endsWith('.js')) {
+            const file = await promisify(readFile)(filePath, 'utf8');
+            return safeLoad(file);
+        }
+        const content = require(filePath);
+
+        if (typeof content === 'function') {
+            return content(env);
+        }
+        return content;
+    }
+    if (path && path.length) {
+        throw new Error(`invalid config file, ${paths.join(',')} not exist`);
+    }
 };

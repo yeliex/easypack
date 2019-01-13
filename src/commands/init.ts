@@ -1,9 +1,9 @@
 import * as inquirer from 'inquirer';
 import { resolve } from 'path';
 import { set } from 'lodash';
-import { exist as configExist, write } from '../libs/utils/config';
+import { exist as configExist, write } from '../libs/utils/option';
 import { fileStat } from '../libs/utils/fs';
-import { INITIAL_CONFIG } from '../libs/consts';
+import { INITIAL_OPTION } from '../consts';
 
 exports.command = 'init';
 
@@ -13,6 +13,7 @@ exports.builder = function (yargs) {
     return yargs.options({
         force: {
             alias: 'f',
+            boolean: true,
             describe: 'Force create',
             default: false,
         },
@@ -20,6 +21,7 @@ exports.builder = function (yargs) {
             alias: 'y',
             describe: 'Init with default',
             default: false,
+            boolean: true,
         },
         type: {
             alias: 't',
@@ -48,7 +50,7 @@ exports.handler = async function (argv) {
     }
 
     if (yes) {
-        return write(path, INITIAL_CONFIG, {
+        return write(path, INITIAL_OPTION, {
             display: true,
             confirm: !force,
         });
