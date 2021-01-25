@@ -18,7 +18,8 @@
     "lib": [
       "esnext"
     ],
-    "newLine": "LF", // 防止windows编译出来crlf的换行符
+    "newLine": "LF",
+    // 防止windows编译出来crlf的换行符
     "pretty": true
   },
   "exclude": [

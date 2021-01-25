@@ -38,4 +38,3 @@ if (argv && argv._) {
         yargs.showHelp();
     }
 }
-

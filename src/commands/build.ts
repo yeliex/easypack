@@ -1,6 +1,6 @@
 import { PUBLIC_BUILD_OPTIONS } from '../consts';
 
-exports.command = 'build';
+exports.command = 'build [input] [output]';
 
 exports.desc = 'Start build';
 
@@ -22,5 +22,11 @@ exports.options = {
 exports.builder = function (yargs) {
     return yargs.options({
         ...exports.options,
+    }).positional('input', {
+        desc: 'Input entry',
+        type: 'string',
+    }).positional('output', {
+        desc: 'Output directory',
+        type: 'string',
     });
 };

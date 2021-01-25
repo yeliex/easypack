@@ -45,7 +45,7 @@ export interface InputOptions extends KV {
     production?: boolean,
 }
 
-interface Options extends InputOptions {
+export interface Options extends InputOptions {
     input: MultiEntryOptions,
     output: OutputObjectOptions,
     features: FeaturesOptionsObject,
@@ -76,7 +76,6 @@ export const parseInput = (userInput: InputOptions): Options => {
     });
 
     const {input, output, features, host, port, ...extra} = userInput;
-
 
     if (typeof input === 'string') {
         options.input = {
@@ -120,12 +119,12 @@ export const parseInput = (userInput: InputOptions): Options => {
 
     if (host) {
         assert(typeof host === 'string', `invalid host type, want string of ip format, but got ${typeof host}`);
-        options.dev.host = host;
+        (<KV>options.dev).host = host;
     }
     if (port) {
         const p = Number(port);
         assert(!Number.isNaN(p), `invalid port type, want number, but got ${typeof port}`);
-        options.dev.port = p;
+        (<KV>options.dev).port = p;
     }
 
     return {

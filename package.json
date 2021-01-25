@@ -4,7 +4,8 @@
   "description": "a webpack implemention cli",
   "main": "index.js",
   "bin": {
-    "easypack": "bin/easypack"
+    "easypack": "bin/easypack",
+    "pack": "bin/easypack"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

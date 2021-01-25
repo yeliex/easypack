@@ -1,5 +1,3 @@
-import { TARGET_INITIAL_OPTION } from '../lib/consts';
-
 export const AVALIABLE_CONFIG_FILE: string[] = [
     '.pack.js',
     '.packrc',

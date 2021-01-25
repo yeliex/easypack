@@ -2,7 +2,7 @@ import { PUBLIC_BUILD_OPTIONS } from '../consts';
 import { parseCmd } from '../libs/options';
 import Start from '../libs/start';
 
-exports.command = 'start [input] [output]';
+exports.command = 'start [input]';
 
 exports.desc = 'Start build with development server';
 
@@ -22,10 +22,6 @@ exports.builder = function (yargs) {
     return yargs.options(exports.options)
         .positional('input', {
             desc: 'Input entry',
-            type: 'string',
-        })
-        .positional('output', {
-            desc: 'Output directory',
             type: 'string',
         });
 };
